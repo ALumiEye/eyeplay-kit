@@ -1,0 +1,20 @@
+{
+  "name": "eyeplay-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bộ công cụ cho AI và nhà phát triển đưa game lên EyePlay (play.alumieye.com).",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "verify": "node tools/verify.js",
+    "check": "node tools/check.js",
+    "playtest": "node tools/playtest.js",
+    "test": "node test/run.js"
+  },
+  "devDependencies": {
+    "playwright-core": "1.64.1"
+  }
+}

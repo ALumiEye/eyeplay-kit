@@ -1,0 +1,39 @@
+{
+  "_help": {
+    "id": "chữ thường, số, gạch ngang, 3–32 ký tự; là đường dẫn /choi/<id> và tiền tố khoá localStorage '<id>.'",
+    "title": "tên game hiện cho người chơi",
+    "subtitle": "dòng phụ ngắn, in hoa (tuỳ chọn)",
+    "genre": "Hành động | Phiêu lưu | Giải đố | Chiến thuật | Đua xe | Thể thao | Bắn súng | Nhập vai | Mô phỏng | Âm nhạc | Trí tuệ | Văn phòng | Thẻ bài | Khác",
+    "blurb": "một câu cho thẻ game, tối đa ~110 ký tự",
+    "about": "1–2 đoạn giới thiệu ở trang game",
+    "controls": "phím chính: keys là các phím tương đương, action là việc nó làm",
+    "controlsNote": "ghi chú thêm về chuột / menu (tuỳ chọn)",
+    "rankedModes": "chế độ có xếp hạng; id trùng mode khi gọi EyePlay.recordRun. Xoá trường này nếu game chơi tự do",
+    "touch": "true nếu chơi được trên điện thoại (cảm ứng)",
+    "developer": "tên nhà phát triển",
+    "contact": "email / cách liên hệ để đội EyePlay báo kết quả duyệt",
+    "version": "số phiên bản, tăng mỗi lần nộp",
+    "build": "thư mục build, tương đối với file này ('.' nếu không cần build)",
+    "playtest": "cho tools/verify.js: keys = các phím bấm thử sau khi bấm Chơi (tên phím kiểu Playwright: Enter, Space, ArrowUp, KeyA…), seconds = thời gian bấm thử, ignore = file trong build bỏ qua khi kiểm tra"
+  },
+  "id": "ten-game",
+  "title": "Tên Game",
+  "subtitle": "THỂ LOẠI NGẮN",
+  "genre": "Hành động",
+  "blurb": "Một câu thật hấp dẫn về game.",
+  "about": ["Đoạn giới thiệu thứ nhất.", "Đoạn thứ hai (tuỳ chọn)."],
+  "controls": [
+    { "keys": ["←", "A"], "action": "Sang trái" },
+    { "keys": ["→", "D"], "action": "Sang phải" },
+    { "keys": ["Space"], "action": "Nhảy" },
+    { "keys": ["Esc"], "action": "Tạm dừng" }
+  ],
+  "controlsNote": "",
+  "rankedModes": [{ "id": "thuong", "name": "Chế độ thường", "metric": "Điểm" }],
+  "touch": false,
+  "developer": "Tên bạn",
+  "contact": "email@vidu.com",
+  "version": "1.0.0",
+  "build": "dist",
+  "playtest": { "keys": ["Enter", "ArrowRight", "ArrowLeft", "Space"], "seconds": 6, "ignore": [] }
+}

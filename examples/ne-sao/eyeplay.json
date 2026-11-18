@@ -1,0 +1,20 @@
+{
+  "id": "ne-sao",
+  "title": "Né Sao",
+  "subtitle": "GAME MẪU",
+  "genre": "Hành động",
+  "blurb": "Né mưa sao càng lâu càng tốt. Game mẫu nhỏ cho nhà phát triển muốn đưa game lên EyePlay.",
+  "about": ["Sao rơi mỗi lúc một nhanh. Di chuyển sang trái, phải để né; trúng sao là hết ván."],
+  "controls": [
+    { "keys": ["←", "A"], "action": "Sang trái" },
+    { "keys": ["→", "D"], "action": "Sang phải" },
+    { "keys": ["Space"], "action": "Chơi lại" }
+  ],
+  "rankedModes": [{ "id": "thuong", "name": "Né lâu nhất", "metric": "Điểm" }],
+  "touch": false,
+  "developer": "ALumiEye",
+  "contact": "play.alumieye.com",
+  "version": "1.0.0",
+  "build": ".",
+  "playtest": { "keys": ["ArrowLeft", "ArrowRight"], "seconds": 6 }
+}

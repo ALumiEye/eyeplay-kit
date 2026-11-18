@@ -1,0 +1,16 @@
+{
+  "name": "alumieye",
+  "owner": {
+    "name": "ALumiEye"
+  },
+  "metadata": {
+    "description": "Plugin của ALumiEye cho nhà phát triển game EyePlay."
+  },
+  "plugins": [
+    {
+      "name": "eyeplay-kit",
+      "source": "./",
+      "description": "Làm game trình duyệt và đưa lên EyePlay (play.alumieye.com)."
+    }
+  ]
+}

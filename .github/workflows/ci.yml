@@ -1,0 +1,27 @@
+name: CI
+
+# Kit tự kiểm tra: game mẫu phải ĐẠT, game hỏng cố ý phải bị bắt đúng lỗi (Chrome thật).
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Kiểm tra kit (game mẫu + game hỏng cố ý, chơi thử trên Chrome)
+        run: npm test
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: shots
+          path: shots/
+          retention-days: 7
+          if-no-files-found: ignore

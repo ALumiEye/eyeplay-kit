@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280">
+  <title>Né Sao — ảnh bìa</title>
+  <!-- Ảnh bìa cho EyePlay: 1280×800, vẽ bằng CHÍNH hàm vẽ của game (game.js), không menu/HUD.
+       EyePlay mở trang này, chờ window.coverReady = true rồi chụp. -->
+  <style>
+    html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: #1d2433; }
+    canvas { display: block; background: #263048; }
+    h1 { position: fixed; left: 56px; bottom: 48px; margin: 0; font: 900 96px/1 system-ui, sans-serif; color: #f5c24a; }
+  </style>
+</head>
+<body>
+  <canvas id="cover" width="1280" height="800"></canvas>
+  <h1>Né Sao</h1>
+  <script src="game.js"></script>
+  <script>
+    // Một cảnh đẹp cố định: mưa sao, người chơi đang né ở giữa.
+    var stars = [];
+    for (var i = 0; i < 26; i++) stars.push({ x: (i * 211) % 1280, y: 40 + ((i * 137) % 600), r: 10 + (i % 4) * 5 });
+    var ctx = document.getElementById('cover').getContext('2d');
+    window.NeSao.drawScene(ctx, 1280, 800, { x: 700, stars: stars });
+    window.coverReady = true;
+  </script>
+</body>
+</html>

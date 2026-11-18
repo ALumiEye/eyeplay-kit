@@ -1,0 +1,9 @@
+{
+  "name": "eyeplay-kit",
+  "version": "0.1.0",
+  "description": "Làm game trình duyệt và đưa lên EyePlay (play.alumieye.com): hợp đồng tích hợp, kiểm tra tĩnh, chơi thử trong khung cách ly, ảnh bìa, đóng gói nộp.",
+  "author": { "name": "ALumiEye" },
+  "homepage": "https://play.alumieye.com",
+  "repository": "https://github.com/ALumiEye/eyeplay-kit",
+  "license": "MIT"
+}
