@@ -29,6 +29,15 @@ lại. Thêm `--json` nếu muốn đọc kết quả bằng máy.
    bìa. Đạt kiểm tra chưa có nghĩa là đẹp — nếu ảnh trống, vỡ bố cục hoặc chữ bị cắt thì sửa tiếp.
 8. **Nộp**: theo skill `skills/eyeplay-submit/SKILL.md` (zip thư mục build + `eyeplay.json`).
 
+## Ưu tiên khi làm game (theo thứ tự)
+
+1. **Game chỉ chạy trong khung EyePlay.** Làm và thử cho khung đó (có thanh EyePlay phía trên, đổi cỡ theo cửa sổ).
+   Không cần làm bản chạy riêng, chơi offline hay cài như ứng dụng.
+2. **Mượt và nhẹ.** Giữ đủ khung hình (không giật), tải càng nhẹ càng tốt: nén code bằng bundler, ảnh WebP, âm thanh
+   nén vừa phải, không nạp thứ không dùng. Đo lại sau mỗi thay đổi lớn.
+3. **Che giấu code** đứng sau cùng: nén code (minify) là đủ. Không dùng công cụ làm rối mã (obfuscator) vì làm game
+   nặng hơn và chậm hơn.
+
 ## Quy tắc cứng (vi phạm là không đăng được)
 
 - Chỉ dùng file trong thư mục build, **đường dẫn tương đối** (`src="game.js"`, không `/game.js`). Vite: `base: './'`.
