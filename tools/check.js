@@ -48,6 +48,11 @@ export function checkBuild(dir, options = {}) {
 
 	if (!fs.existsSync(path.join(dir, 'index.html')))
 		add('error', 'INDEX', null, 'Thiếu index.html ở gốc thư mục build.', 'Trang chính của game phải là <build>/index.html.');
+	// Màu game phải giữ đúng: Auto Dark Mode của Chrome / Edge (hay bật trên Windows) tự đảo màu trang sáng thành tối.
+	// SDK EyePlay đã chặn hộ, nên chỉ là cảnh báo.
+	if (fs.existsSync(path.join(dir, 'index.html')) && !/color-scheme/i.test(fs.readFileSync(path.join(dir, 'index.html'), 'utf8')))
+		add('warning', 'COLOR_SCHEME', 'index.html', 'Chưa khai báo color-scheme: trình duyệt bật chế độ tự làm tối có thể đảo màu game.',
+			'Thêm <meta name="color-scheme" content="only light" /> vào <head> (game màu tối: content="only dark").');
 	if (!fs.existsSync(path.join(dir, 'cover.html')))
 		add('warning', 'COVER_MISSING', null, 'Chưa có cover.html: EyePlay sẽ chụp màn hình đầu của game làm ảnh bìa.',
 			'Thêm cover.html vẽ một cảnh đẹp 1280×800 bằng code vẽ của game rồi đặt window.coverReady = true (xem docs/HOP-DONG.md, mục Ảnh bìa).');

@@ -28,6 +28,8 @@ export function checkManifest(m) {
 	if (!str(m.blurb)) err('MANIFEST_BLURB', 'Thiếu "blurb" (một câu giới thiệu cho thẻ game).', 'Một câu, tối đa ~110 ký tự.');
 	else if (m.blurb.length > 120) warn('MANIFEST_BLURB', `"blurb" dài ${m.blurb.length} ký tự, thẻ game chỉ hiện 2 dòng.`, 'Rút xuống ~110 ký tự.');
 	if (!Array.isArray(m.about) || !m.about.length || !m.about.every(str)) err('MANIFEST_ABOUT', '"about" phải là mảng 1–2 đoạn giới thiệu.', 'Vd. ["Đoạn 1 ...", "Đoạn 2 ..."].');
+	if (m.tips !== undefined && (!Array.isArray(m.tips) || !m.tips.length || !m.tips.every(str)))
+		err('MANIFEST_TIPS', '"tips" phải là mảng câu mẹo, vd. ["Mẹo 1 ...", "Mẹo 2 ..."].', 'Bỏ trường này nếu game không có mẹo.');
 	if (!str(m.genre)) err('MANIFEST_GENRE', 'Thiếu "genre".', `Chọn một: ${GENRES.join(', ')}.`);
 	else if (!GENRES.includes(m.genre)) warn('MANIFEST_GENRE', `Thể loại "${m.genre}" chưa có trên EyePlay.`, `Nên chọn một: ${GENRES.join(', ')}.`);
 	if (!Array.isArray(m.controls) || !m.controls.length || !m.controls.every((c) => Array.isArray(c?.keys) && c.keys.length && str(c.action)))
@@ -36,6 +38,15 @@ export function checkManifest(m) {
 	if (m.rankedModes !== undefined) {
 		if (!Array.isArray(m.rankedModes) || !m.rankedModes.every((r) => /^[a-z0-9-]{1,40}$/.test(r?.id || '') && str(r?.name) && str(r?.metric)))
 			err('MANIFEST_RANKED', '"rankedModes" phải là mảng { "id": "thuong", "name": "Chế độ thường", "metric": "Điểm" }.', 'id trùng với mode trong EyePlay.recordRun({ mode }). Bỏ trường này nếu game chơi tự do.');
+	}
+	if (Array.isArray(m.rankedModes) && m.rankedModes.some((r) => r?.unit !== undefined && !str(r.unit)))
+		err('MANIFEST_UNIT', '"unit" trong rankedModes phải là chữ ngắn, vd. "m".', 'Bỏ trường này thì điểm hiện là "điểm".');
+	if (m.challenge !== undefined) {
+		const c = m.challenge;
+		const param = (v) => v === undefined || /^[a-z0-9_-]{1,20}$/i.test(v);
+		const radix = c?.seedRadix === undefined || (Number.isInteger(c.seedRadix) && c.seedRadix >= 2 && c.seedRadix <= 36);
+		if (!c || typeof c !== 'object' || !/^[a-z0-9_-]{1,20}$/i.test(c.seed || '') || !param(c.score) || !param(c.name) || !radix)
+			err('MANIFEST_CHALLENGE', '"challenge" phải dạng { "seed": "s", "seedRadix": 36, "score": "diem", "name": "ten" }.', 'Tên tham số game đọc từ link /choi/<id>/?… (chữ, số, _ -). Cần gửi seed trong EyePlay.recordRun. Bỏ trường này nếu không dùng.');
 	}
 	if (!str(m.developer)) err('MANIFEST_DEVELOPER', 'Thiếu "developer" (tên nhà phát triển).', 'Tên cá nhân hoặc nhóm.');
 	if (!str(m.contact)) warn('MANIFEST_CONTACT', 'Thiếu "contact".', 'Email hoặc cách liên hệ để đội EyePlay báo kết quả duyệt.');

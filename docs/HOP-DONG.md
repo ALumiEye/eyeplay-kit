@@ -68,14 +68,35 @@ luôn gọi kiểu tuỳ chọn:
 
 ```js
 // Hết một ván: lưu kết quả (hiện ở trang game; dùng cho bảng xếp hạng). mode trùng id trong eyeplay.json "rankedModes".
-window.EyePlay?.recordRun({ mode: 'thuong', score: 1250, timeMs: 178400, finished: true });
+// seed (tuỳ chọn, số nguyên 0…4294967295): ván dựng từ seed thì gửi kèm, để EyePlay tạo link thách đấu (xem dưới).
+window.EyePlay?.recordRun({ mode: 'thuong', score: 1250, timeMs: 178400, finished: true, seed: 123456 });
 // Về trang chủ EyePlay (vd. mục "Thoát" trong menu game).
 window.EyePlay?.exit();
 // Đang chạy trên EyePlay không?
 if (window.EyePlay) { /* … */ }
 ```
 
+**Thành tích trên máy người chơi** (chung cho mọi game): EyePlay chỉ giữ **ván tốt nhất mọi thời gian của từng
+chế độ** (điểm cao hơn trước, bằng điểm thì nhanh hơn) và **các ván hôm nay**; sang ngày mới lịch sử về rỗng, kỷ lục
+vẫn còn. Trang game trên EyePlay hiện hai phần đó và có nút **Khoe kỷ lục** (ảnh + lời thách, chỉ chia sẻ kỷ lục).
+Game tự lưu thành tích riêng thì nên theo cùng luật, và nên có nút chia sẻ ngay ở màn kết quả (ván vừa chơi).
+
+**Trang game trên EyePlay dùng một mẫu chung cho mọi game:** cột trái là thẻ giới thiệu (ảnh bìa, tên, nút Chơi, `about`)
+rồi thẻ **Mẹo chơi** (`tips`, đóng sẵn, bấm mới mở); cột phải là **Thành tích của bạn** → **Xếp hạng** → **Điều khiển**.
+Bạn chỉ điền nội dung trong `eyeplay.json`, không tự làm trang.
+
+Trong `eyeplay.json` (tuỳ chọn):
+- `"unit"` trong mỗi chế độ của `rankedModes`: đơn vị của `score` khi hiện (vd. `"m"`); không có thì là "điểm".
+- `"challenge"`: link thách đấu khi khoe kỷ lục, `{ "seed": "s", "seedRadix": 36, "score": "diem", "name": "ten" }` =
+  tên tham số game đọc từ `/choi/<id>/?s=…&diem=…&ten=…` để người nhận chơi đúng ván đó (cùng seed) và thấy điểm cần
+  vượt. Chỉ dùng khi ván có `seed`. Game đọc tham số từ trang EyePlay (`window.top.location.search`), vì iframe game
+  không mang theo query của trang.
+
 ## 7. Hiển thị
+
+- **Giữ đúng màu của game**: thêm `<meta name="color-scheme" content="only light" />` (game màu tối: `only dark`) vào
+  `<head>` của `index.html` và `cover.html`. Không có thì Auto Dark Mode của Chrome / Edge (hay bật trên Windows) tự
+  đảo màu game. SDK EyePlay cũng chặn hộ, nhưng game nên tự khai báo.
 
 - Game tự co theo cửa sổ [FIT], [FIT_SMALL]: canvas theo `innerWidth/innerHeight` hoặc CSS `max-width/max-height:
   100%`, `overflow: hidden`. Không để người chơi phải cuộn.
