@@ -72,6 +72,9 @@ luôn gọi kiểu tuỳ chọn:
 window.EyePlay?.recordRun({ mode: 'thuong', score: 1250, timeMs: 178400, finished: true, seed: 123456 });
 // Về trang chủ EyePlay (vd. mục "Thoát" trong menu game).
 window.EyePlay?.exit();
+// Tải một ảnh (Blob, vd. ảnh khoe thành tích vẽ bằng canvas) về máy người chơi. EyePlay đặt tên chung cho mọi game
+// record-<id>-<lúc bấm>.png và tải hộ (game cách ly không tự tải file được). imageName() trả về đúng tên đó.
+window.EyePlay?.saveImage(blob);
 // Đang chạy trên EyePlay không?
 if (window.EyePlay) { /* … */ }
 ```
