@@ -37,6 +37,8 @@ Bộ công cụ để **AI của bạn** (Claude Code, Codex, Cursor…) làm ga
 | `tools/playtest.js` | Chơi thử trong EyePlay thu nhỏ, chụp ảnh `eyeplay-shots/` |
 | `skills/` | Skill cho AI: làm game, nộp game |
 | `templates/eyeplay.json` | Mẫu thông tin game |
+| `templates/det-math.js`, `templates/check-det-math.mjs` | Game có contest: toán tất định + kiểm thứ tự nạp sau khi build (`docs/REPLAY.md`) |
+| `docs/REPLAY.md` | Hợp đồng replay: để game có contest và bảng xếp hạng chung |
 | `examples/ne-sao/` | Game nhỏ nhất đạt mọi yêu cầu |
 
 Game của chính ALumiEye cũng được kiểm tra bằng đúng bộ công cụ này.

@@ -79,6 +79,27 @@ window.EyePlay?.saveImage(blob);
 if (window.EyePlay) { /* … */ }
 ```
 
+**Ván thi contest** (chỉ game theo hợp đồng replay, `docs/REPLAY.md`): `recordRun` gửi thêm thao tác để server chơi
+lại và kiểm điểm.
+
+```js
+window.EyePlay?.recordRun({
+  mode: 'daily', score: 6463, timeMs: 200850, seed: 3486083199,
+  finished: true,        // false = ván chốt giữa chừng (xem dưới)
+  rules: 'eyemerge@1',   // phiên bản luật (đổi khi luật đổi)
+  endTick: 12051,        // số bước cố định lúc ván chốt
+  inputs: 'Ga4lNMMS…'    // thao tác đã nén (base64), do lõi session của game ghi
+});
+```
+
+- **Xếp hạng trong contest, chung mọi game**: `score` cao hơn thắng → bằng điểm thì `timeMs` ngắn hơn → bằng nữa thì
+  **số lần thử** ít hơn (lần nộp thứ mấy thì đạt ván đó; server tự đếm). `score` là **một số nguyên, càng cao càng
+  tốt**, được âm. Game "về đích nhanh nhất thắng" thì đặt `score` = mức hoàn thành (vd. 1 nếu về đích, 0 nếu không), thời
+  gian đã nằm ở `timeMs`.
+- **Ván dở**: ván đang chơi dở (checkpoint để chơi tiếp) **chỉ lưu trên máy**, không gửi. Chỉ gửi khi ván **chốt**: chơi
+  tới hết (`finished: true`), hoặc chốt giữa chừng (`finished: false`): game có resume thì khi người chơi chọn "Chơi
+  lại", game không resume thì khi thoát giữa ván. Mỗi lần gửi là một lần thử.
+
 **Thành tích trên máy người chơi** (chung cho mọi game): EyePlay chỉ giữ **ván tốt nhất mọi thời gian của từng
 chế độ** (điểm cao hơn trước, bằng điểm thì nhanh hơn) và **các ván hôm nay**; sang ngày mới lịch sử về rỗng, kỷ lục
 vẫn còn. Trang game trên EyePlay hiện hai phần đó và có nút **Khoe kỷ lục** (ảnh + lời thách, chỉ chia sẻ kỷ lục).
@@ -94,6 +115,10 @@ Trong `eyeplay.json` (tuỳ chọn):
   tên tham số game đọc từ `/choi/<id>/?s=…&diem=…&ten=…` để người nhận chơi đúng ván đó (cùng seed) và thấy điểm cần
   vượt. Chỉ dùng khi ván có `seed`. Game đọc tham số từ trang EyePlay (`window.top.location.search`), vì iframe game
   không mang theo query của trang.
+
+**Contest và bảng xếp hạng chung (tuỳ chọn):** muốn game có contest (đề chung, xếp hạng toàn server, rating) thì game
+phải theo **hợp đồng replay** `docs/REPLAY.md`: logic ván và replay là một nguồn, tất định trên mọi máy, xuất
+`dist/replay.mjs`. Không làm thì game vẫn đăng được, chỉ có kỷ lục trên máy.
 
 ## 7. Hiển thị
 

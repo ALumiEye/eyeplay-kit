@@ -57,6 +57,12 @@ lại. Thêm `--json` nếu muốn đọc kết quả bằng máy.
   game, thành tựu, cover.html). Học cách tổ chức code, vẽ, lưu dữ liệu, ảnh bìa. **Không chép**: logo/Lumi/màu
   ALumiEye, service worker `sw.js` (EyePlay tắt nó), phần GitHub Pages/Release (không bắt buộc với bạn).
 
+## Game có contest (tuỳ chọn)
+
+Muốn game có contest và bảng xếp hạng chung: theo **`docs/REPLAY.md`** (logic ván và replay là một nguồn, tất định, xuất
+`dist/replay.mjs`). Dùng đúng hai file mẫu, không sửa nội dung: `templates/det-math.js` (import ở dòng đầu file import
+thư viện vật lý) và `templates/check-det-math.mjs` (chạy sau mỗi lần build).
+
 ## Công cụ
 
 | Lệnh | Làm gì |
