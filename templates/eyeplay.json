@@ -3,7 +3,7 @@
     "id": "chữ thường, số, gạch ngang, 3–32 ký tự; là đường dẫn /choi/<id> và tiền tố khoá localStorage '<id>.'",
     "title": "tên game hiện cho người chơi",
     "subtitle": "dòng phụ ngắn, in hoa (tuỳ chọn)",
-    "genre": "Hành động | Phiêu lưu | Giải đố | Chiến thuật | Đua xe | Thể thao | Bắn súng | Nhập vai | Mô phỏng | Âm nhạc | Trí tuệ | Văn phòng | Thẻ bài | Khác",
+    "genre": "Một thể loại, hoặc tối đa 3 dạng danh sách (cái đầu là chính), ví dụ [\"Thể thao\", \"Hành động\"]. Chọn trong: Hành động | Phiêu lưu | Giải đố | Chiến thuật | Đua xe | Thể thao | Bắn súng | Nhập vai | Mô phỏng | Âm nhạc | Trí tuệ | Văn phòng | Thẻ bài | Khác",
     "blurb": "một câu cho thẻ game, tối đa ~110 ký tự",
     "about": "1–2 đoạn giới thiệu ở trang game",
     "tips": "(tuỳ chọn) mẹo chơi, mỗi mẹo một câu; hiện trong thẻ \"Mẹo chơi\" riêng dưới phần giới thiệu, đóng sẵn (bấm mới mở). Xoá nếu không có",

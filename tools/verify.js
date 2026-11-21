@@ -30,8 +30,12 @@ export function checkManifest(m) {
 	if (!Array.isArray(m.about) || !m.about.length || !m.about.every(str)) err('MANIFEST_ABOUT', '"about" phải là mảng 1–2 đoạn giới thiệu.', 'Vd. ["Đoạn 1 ...", "Đoạn 2 ..."].');
 	if (m.tips !== undefined && (!Array.isArray(m.tips) || !m.tips.length || !m.tips.every(str)))
 		err('MANIFEST_TIPS', '"tips" phải là mảng câu mẹo, vd. ["Mẹo 1 ...", "Mẹo 2 ..."].', 'Bỏ trường này nếu game không có mẹo.');
-	if (!str(m.genre)) err('MANIFEST_GENRE', 'Thiếu "genre".', `Chọn một: ${GENRES.join(', ')}.`);
-	else if (!GENRES.includes(m.genre)) warn('MANIFEST_GENRE', `Thể loại "${m.genre}" chưa có trên EyePlay.`, `Nên chọn một: ${GENRES.join(', ')}.`);
+	// "genre": một chuỗi, hoặc 1–3 chuỗi khi game thuộc nhiều thể loại (cái đầu là chính).
+	const genreList = Array.isArray(m.genre) ? m.genre : [m.genre];
+	if (!genreList.length || !genreList.every(str)) err('MANIFEST_GENRE', 'Thiếu "genre".', `Một thể loại ("Hành động") hoặc tối đa 3 (["Thể thao", "Hành động"]), chọn trong: ${GENRES.join(', ')}.`);
+	else if (genreList.length > 3) err('MANIFEST_GENRE', `"genre" có ${genreList.length} thể loại, tối đa 3.`, 'Giữ 1–3 thể loại đúng nhất, cái đầu là chính.');
+	else if (new Set(genreList).size !== genreList.length) err('MANIFEST_GENRE', '"genre" có thể loại lặp lại.', 'Mỗi thể loại chỉ ghi một lần.');
+	else for (const g of genreList.filter((x) => !GENRES.includes(x))) warn('MANIFEST_GENRE', `Thể loại "${g}" chưa có trên EyePlay.`, `Nên chọn trong: ${GENRES.join(', ')}.`);
 	if (!Array.isArray(m.controls) || !m.controls.length || !m.controls.every((c) => Array.isArray(c?.keys) && c.keys.length && str(c.action)))
 		err('MANIFEST_CONTROLS', '"controls" phải là mảng { "keys": ["←", "A"], "action": "Sang trái" }.', 'Liệt kê các phím chính (không cần đủ hết).');
 	if (m.touch !== undefined && typeof m.touch !== 'boolean') err('MANIFEST_TOUCH', '"touch" phải là true/false.', 'true nếu chơi được trên điện thoại.');
