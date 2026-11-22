@@ -92,6 +92,26 @@ window.EyePlay?.recordRun({
 });
 ```
 
+- **Đấu Trường** (EyePlay vẽ, chung mọi game có contest): game có **một nút "Đấu Trường"** trong menu, bấm thì gọi
+  `window.EyePlay?.openArena()`. EyePlay mở màn đè lên game: điểm đấu trường (rating), các trận đang mở, Bảng vàng.
+  Người chơi bấm "Chơi" một trận → game nhận trận đó và **chơi đúng đề của trận**:
+
+  ```js
+  window.EyePlay?.onContest((contest) => {
+    // contest = { id, title, seed, mode, endsAt }: chơi ở chế độ contest.mode với đề contest.seed
+    startGame({ mode: contest.mode, seed: contest.seed });
+  });
+  // Ván xong: recordRun như trên, thêm contest: contest.id (SDK cũng tự gắn nếu ván đúng đề của trận đang chọn).
+  ```
+  `window.EyePlay.contest` = trận đang chọn (hoặc `null`). "Chơi lại" thì chơi lại trận đó; về menu thì thôi trận.
+  Nút thử thách theo ngày của game (nếu có) gọi trước `await window.EyePlay?.offerArena()`: đang có trận mở thì EyePlay
+  hỏi người chơi "vào Đấu Trường luôn?" rồi trả `'arena'` (EyePlay đã mở Đấu Trường: game không làm gì), `'free'` (chơi
+  tự do với **đề khác**, không phải đề của trận, không tính hạng), `'none'` (không có trận: chơi đề thử thách như thường)
+  hoặc `'cancel'` (người chơi đóng hộp hỏi).
+  Màn Đấu Trường có bố cục chung cho mọi game, game không tự vẽ. Muốn màu / font / bo góc hợp với game: ghi vào
+  `arenaTheme` trong file cấu hình game của EyePlay (`apps/web/src/lib/games/<id>.ts`, các khoá ở
+  `apps/web/src/lib/arena/theme.ts`: ink, accent, surface, card, highlight, highlightStrong, down, backdrop, font, radius).
+  Game không tự vẽ bảng xếp hạng, không tự gọi API.
 - **Xếp hạng trong contest, chung mọi game**: `score` cao hơn thắng → bằng điểm thì `timeMs` ngắn hơn → bằng nữa thì
   **số lần thử** ít hơn (lần nộp thứ mấy thì đạt ván đó; server tự đếm). `score` là **một số nguyên, càng cao càng
   tốt**, được âm. Game "về đích nhanh nhất thắng" thì đặt `score` = mức hoàn thành (vd. 1 nếu về đích, 0 nếu không), thời

@@ -87,6 +87,8 @@ export function replay(sub: {
 - Ràng buộc của server: không `window` / `document` / canvas / âm thanh / `fetch`; **không `eval`, không `new
   Function`**; chơi lại một ván dài vẫn dưới vài giây CPU; file gọn (vài trăm KB).
 - `recordRun` gửi thêm cho ván thi: `rules`, `inputs`, `endTick`, `finished`, `seed` (xem `HOP-DONG.md` mục 6).
+- Đề của trận do **EyePlay đưa** (Đấu Trường, `HOP-DONG.md` mục 6: `EyePlay.onContest`), game chơi đúng `seed` đó.
+  Cửa replay xuất thêm `contestSeed(contestId)`: đề của một trận theo mã của nó (server lấy đề từ đây, không tự tính).
 - `dist/replay.mjs` **không** được phục vụ công khai: EyePlay bỏ nó khỏi bản game trên `/play/<id>/` và chỉ đóng gói nó
   vào server.
 
@@ -119,8 +121,6 @@ không resume thì khi thoát giữa ván. Mỗi lần chốt là một lần th
 
 ## 8. Chưa chốt (sẽ cập nhật)
 
-- **EyePlay đưa đề của contest cho game thế nào** (seed của contest, qua SDK). Game phải chơi được đề do EyePlay đưa,
-  không chỉ đề tự tính theo ngày trên máy.
 - **Khai báo contest trong `eyeplay.json`**: chế độ thi, nhịp (ngày / tuần), game có resume không. Sẽ là trường mới
   của `rankedModes`.
 - **Game chỉ nộp bản build** (game cộng đồng): nộp `replay.mjs` cùng zip ở đâu, EyePlay tách nó ra thế nào.
